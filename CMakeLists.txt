@@ -68,8 +68,6 @@ foreach(dir launch models urdf worlds config)
 endforeach(dir)
 
 
-
-
 ######### READ SENSORS DJI #################
 
 

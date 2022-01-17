@@ -9,8 +9,8 @@
 
 
 using namespace sensor_msgs;
-
 using namespace message_filters;
+using namespace std;
 
 
 /// Variavel para leitura GPS RTK
@@ -21,7 +21,8 @@ double RadToDeg = 180 / M_PI;
 
 static int counter = 1;
 
-std::string decimal(int r);
+//std::string decimal(int r);
+string decimal(int r);
 
 static std::ofstream images_file;
 
@@ -55,20 +56,26 @@ void callback(const sensor_msgs::ImageConstPtr &image_R,
 
     std::stringstream writeR;
     std::stringstream writeL;
+
     
-    writeR << "./image/R" << img_counter << counter << ".png";
-    writeL << "./image/L" << img_counter << counter << ".png";
+    writeR << "./images/R" << img_counter << counter << ".png";
+    writeL << "./images/L" << img_counter << counter << ".png";
     cv::imwrite(writeL.str(), cv_ptr_L->image);
     cv::imwrite(writeR.str(), cv_ptr_R->image);
-    std::cout << "Aqcuired Image -" << counter << std::endl;
-
-    std::cout << "Press Enter to Continue";
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    system("clear");
+    
+    cout << endl;
+    cout << " Gerado par estereo numero------> " << counter << "em " << endl;
+    cout << " Para gerar outro par estéreo --> <enter>." << endl;
+    cout << " Para sair ---------------------> <Ctrl+C> seguido de <enter>.";
+    cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 
     ++counter;
 }
 
 int main(int argc, char **argv) {
+
+    system("clear");
 
     ros::init(argc, argv, "stereo_lidar_thread");
     ros::NodeHandle nh;
